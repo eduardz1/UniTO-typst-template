@@ -1,4 +1,4 @@
-#import "@preview/unito-thesis-template:0.1.0": template
+#import "@preview/unito-thesis:0.1.0": template
 
 #show: template.with(
   // Your title goes here

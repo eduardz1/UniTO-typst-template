@@ -9,6 +9,9 @@
   ]
 )
 
+// FIXME: workaround for the lack of `std` scope
+#let std-bibliography = bibliography
+
 #let template(
   // Your thesis title
   title: [Thesis Title],
@@ -41,18 +44,20 @@
   // Set to "it" for the italian template
   lang: "en",
 
-  // The thesis' bibliography, should either be passed as a Hayagriva
-  // .yml file or a BibTeX .bib file or `none` if you don't need
+  // The thesis' bibliography, should be passed as a call to the
+  // `bibliography` function or `none` if you don't need
   // to include a bibliography
-  bibliography-path: none,
+  bibliography: none,
 
-  // The university's logo, should be a path to the logo file
-  logo: "imgs/logo.svg",
+  // The university's logo, should be passed as a call to the `image`
+  // function or `none` if you don't need to include a logo
+  logo: none,
 
-  // Are included by default with respectively an abstract.typ and
-  // an acknowledgments.typ file, can be set to `false` if not needed
-  abstract: true,
-  acknowledgments: true,
+  // Abstract of the thesis, set to none if not needed
+  abstract: none,
+
+  // Acknowledgments, set to none if not needed
+  acknowledgments: none,
 
   // The thesis' keywords, can be left empty if not needed
   keywords: none,
@@ -144,7 +149,9 @@
   ]
 
   v(3fr)
-  image(logo, width: 40%)
+  if logo != none {
+    logo
+  }
   v(3fr)
 
   text(1.5em, subtitle)
@@ -225,7 +232,7 @@
   pagebreak(weak: true)
 
   // Acknowledgments
-  if acknowledgments {
+  if acknowledgments != none {
     heading(
       level: 2,
       numbering: none,
@@ -236,20 +243,20 @@
         "Ringraziamenti"
       }
     )
-    include "acknowledgments.typ"
+    acknowledgments
 
     pagebreak(weak: true)
   }
 
   // Abstract
-  if abstract {
+  if abstract != none {
     heading(
       level: 2,
       numbering: none,
       outlined: false,
       "Abstract"
     )
-    include "abstract.typ"
+    abstract
   }
 
   // Keywords
@@ -313,7 +320,8 @@
         "Riferimenti"
       }
     )
-    show bibliography: set text(size: 0.9em)
-    bibliography(bibliography-path, title: none)
+    show std-bibliography: set text(size: 0.9em)
+    set std-bibliography(title: none)
+    bibliography
   }
 }

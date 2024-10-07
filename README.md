@@ -11,7 +11,7 @@ In the Typst web app simply click "Start from template" on the dashboard and sea
 From the CLI you can initialize the project with the command
 
 ```bash
-typst init @preview/unito-thesis
+typst init @preview/modern-unito-thesis:0.1.0
 ```
 
 A new directory with all the files needed to get started will be created.
@@ -42,7 +42,7 @@ The template divides the level 1 headings in chapters under the `chapters` direc
 If you want to change an existing project to use this template, you can add a show rule like this at the top of your file:
 
 ```typ
-#import "@preview/unito-thesis:0.1.0": template
+#import "@preview/modern-unito-thesis:0.1.0": template
 
 #show: template.with(
   title: "My Beautiful Thesis",
